@@ -37,5 +37,5 @@ This assignment is due on October 10th.
       * How does your p-value compare to what you saw using the built in functions? Explain your observations.
 
 
-6.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
+6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
