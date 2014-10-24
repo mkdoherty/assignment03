@@ -134,7 +134,7 @@ dist <- rnorm(iterations, 0, 1)^2
   
   * Compare your Chi-Squared distributions to what you might get from the appropriate built in R functions
   
-```{r}
+```{r distributions, dev=c("png", "pdf"), fig.align='center', fig.path="./figures/"}
 h <- hist(dist, breaks=500, plot=F)
 plot(h$density~h$mids, type="l", col="red", xlab="Statistic value", ylab="Density")
 points(dchisq(h$breaks, df=1)~h$breaks, type="l", col="blue")
@@ -158,3 +158,12 @@ Very close!
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
+```{r}
+my.bag <- c("red" = 9, "purple"=8, "green"=6, "yellow"=5, "orange"=3)
+n.candies <- sum(my.bag)
+n.colors <- length(my.bag)
+even.distro <- rep(n.candies / n.colors, n.colors)
+skittle.test <- chisq.test(rbind(my.bag, even.distro))
+```
+
+The distribution of colors I observed was not significantly different from what you'd expect if they were evenly distributed (P=`r round(skittle.test$p.value, 2)`)

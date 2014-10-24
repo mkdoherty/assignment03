@@ -148,7 +148,7 @@ points(dchisq(h$breaks, df=1)~h$breaks, type="l", col="blue")
 legend(x=15, y=3.0, legend=c("Empirical", "Formula"), lty=1, lwd=2, col=c("red", "blue"))
 ```
 
-![](./README_solution_files/figure-html/unnamed-chunk-7-1.png) 
+<img src="./figures/distributions-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 They look very close!
 
@@ -159,7 +159,7 @@ They look very close!
 ```r
 p.empirical <- sum(dist > chi.sq.formula)/iterations
 ```
-My P-value was 1.98\times 10^{-5}.
+My P-value was 1.93\times 10^{-5}.
 
 * How does your p-value compare to what you saw using the built in functions? Explain your observations.
 
@@ -168,3 +168,18 @@ Very close!
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
+
+```r
+my.bag <- c("red" = 9, "purple"=8, "green"=6, "yellow"=5, "orange"=3)
+n.candies <- sum(my.bag)
+n.colors <- length(my.bag)
+even.distro <- rep(n.candies / n.colors, n.colors)
+skittle.test <- chisq.test(rbind(my.bag, even.distro))
+```
+
+```
+## Warning in chisq.test(rbind(my.bag, even.distro)): Chi-squared
+## approximation may be incorrect
+```
+
+The distribution of colors I observed was not significantly different from what you'd expect if they were evenly distributed (P=0.74)
