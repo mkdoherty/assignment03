@@ -44,3 +44,4 @@ This assignment is due on October 10th.
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
+Yes within error
