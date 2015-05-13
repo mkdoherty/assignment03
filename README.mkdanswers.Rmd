@@ -60,4 +60,4 @@ dev.off() #stops writing pdf file
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
-Yes within error
+No for one bag but with an increase in the sample size of bags the candy colors would be evenly distributed.
