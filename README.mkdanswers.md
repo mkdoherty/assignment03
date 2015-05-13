@@ -53,6 +53,17 @@ dev.off() #stops writing pdf file
 
     <img src="beta.png", style="margin:0px auto;display:block" width="700">
 
+```r
+germfree <- read.table(file="germfree.nmds.axes", header=T)
+plot(germfree[germfree$mouse=="337","axis2"]~germfree[germfree$mouse=="337","axis1"], col="black", pch=18, type="l")
+points(germfree[germfree$mouse=="343","axis2"]~germfree[germfree$mouse=="343","axis1"], col="blue", pch=19, type="l")
+points(germfree[germfree$mouse=="361","axis2"]~germfree[germfree$mouse=="361","axis1"], col="red", pch=20, type="l")
+points(germfree[germfree$mouse=="387","axis2"]~germfree[germfree$mouse=="387","axis1"], col="green", pch=20, type="l")
+points(germfree[germfree$mouse=="389","axis2"]~germfree[germfree$mouse=="389","axis1"], col="brown", pch=20, type="l")
+legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387", "Mouse 389"), col=c("black", "blue", "red", "green", "brown"), lty=1, lwd=2)
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-3-1.png) 
 
 3.  On pg. 57 there is a formula for the probability of making x observations after n trials when there is a probability p of the observation.  For this exercise, assume x=2, n=10, and p=0.5.  Using R, calculate the probability of x using this formula and the appropriate built in function. Compare it to the results we obtained in class when discussing the sex ratios of mice.
 
@@ -73,4 +84,4 @@ dev.off() #stops writing pdf file
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
-Yes within error
+No for one bag but with an increase in the sample size of bags the candy colors would be evenly distributed.
