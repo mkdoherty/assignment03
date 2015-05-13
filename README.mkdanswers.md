@@ -14,6 +14,40 @@ This assignment is due on October 10th.
 
     <img src="pch.png", style="margin:0px auto;display:block" width="500">
 
+```r
+plot(1:25, pch = c(1:25), col = rainbow(25)) #produces a plot on the diagonal with 25 pch symbols in rainbow colors
+pch.plot<-plot(1:25, pch = c(1:25), col = rainbow(25))
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-1-1.png) 
+
+```r
+stripchart(1:25, pch = c(1:25), col = rainbow(25)) #doesn't work to make plot that looks like Pat's, but is stripchart as opposed to plot
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-1-2.png) 
+I found it very interesting that 'pch.plot<-plot(1:25, pch = c(1:25), col = rainbow(25))' gets a "correct" answer for this question, but 'stripchart(1:25, pch = c(1:25), col = rainbow(25))' produces a strip chart of 25 red circles. So, I tried to make my plot look more like the example.
+
+```r
+x.pch <- 1:25 #makes x vector 1-25
+y.pch <- rep(1, 25) #repeats 1 25 times
+xy.pch <- cbind(x.pch,y.pch) #creats matrix with x=1-25 y=1
+stripplot <- plot(xy.pch, pch=1:25, col = rainbow(25), cex=2) #makes a plot that looks like Pat's example
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-2-1.png) 
+
+```r
+pdf(file = "stripplot.pdf") #creats pdf file named stripplot
+plot(xy.pch, pch=1:25, col = rainbow(25), cex=2) # puts plot into pdf
+dev.off() #stops writing pdf file
+```
+
+```
+## quartz_off_screen 
+##                 2
+```
+<img src=stripplot.pdf>
 
 2.  Using the `germfree.nmds.axes` data file available in this respositry, generate a plot that looks like this. The points are connected in the order they were sampled with the circle representing the beginning ad the square the end of the time course:
 
