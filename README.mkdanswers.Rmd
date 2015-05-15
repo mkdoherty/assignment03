@@ -49,12 +49,13 @@ abline(v=x.pch, col="gray") #adds verticle lines at each value x
 axis(1, label=1:25, at=1:25) #adds bottom(1) axis label, numbered -125 with tick marks at1-25
 ```
 
-I then generated a pdf with Rstudios export funciton in the "plots" window.
+I then generated a pdf with Rstudios export funciton in the "plots" window instead of using the pdf code above.
 <img src=pch.portrait.pdf>
 
 2.  Using the `germfree.nmds.axes` data file available in this respositry, generate a plot that looks like this. The points are connected in the order they were sampled with the circle representing the beginning ad the square the end of the time course:
 
     <img src="beta.png", style="margin:0px auto;display:block" width="700">
+    
 ```{r}
 germfree <- read.table(file="germfree.nmds.axes", header=T)
 plot(germfree[germfree$mouse=="337","axis2"]~germfree[germfree$mouse=="337","axis1"], col="black", pch=18, type="l")
@@ -65,11 +66,41 @@ points(germfree[germfree$mouse=="389","axis2"]~germfree[germfree$mouse=="389","a
 legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387", "Mouse 389"), col=c("black", "blue", "red", "green", "brown"), lty=1, lwd=2)
 ```
 
+It was a good effort, but i couldnt figure out how to add circles and squares at the appropriate places, so I consulted the solutions.
+
+Here is my attempt to integrate my code with the "correct" code.
+```{r}
+germfree <- read.table(file="germfree.nmds.axes", header=T)
+mouse <- factor(germfree$mouse)
+day <- germfree$day
+plot(c(min(germfree$axis1), max(germfree$axis1)), c(min(germfree$axis2), max(germfree$axis2)), type="n", xlab="NMDS Axis 1", ylab="NMDS Axis 2")
+points(germfree[germfree$mouse=="337","axis2"]~germfree[germfree$mouse=="337","axis1"], col="black", pch=18, type="l", lwd=3)
+points(germfree[germfree$mouse=="343","axis2"]~germfree[germfree$mouse=="343","axis1"], col="blue", pch=19, type="l", lwd=3)
+points(germfree[germfree$mouse=="361","axis2"]~germfree[germfree$mouse=="361","axis1"], col="red", pch=20, type="l", lwd=3)
+points(germfree[germfree$mouse=="387","axis2"]~germfree[germfree$mouse=="387","axis1"], col="green", pch=20, type="l", lwd=3)
+points(germfree[germfree$mouse=="389","axis2"]~germfree[germfree$mouse=="389","axis1"], col="brown", pch=20, type="l", lwd=3)
+legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387", "Mouse 389"), col=c("black", "blue", "red", "green", "brown"), lty=1, lwd=2)
+d1 <- day == 1
+points(germfree[d1,"axis2"]~germfree[d1,"axis1"], col=c("black", "blue", "red", "green", "brown"), pch=19, cex=2)
+d2<- day == 21 | (mouse=="337" & day == 20)
+points(germfree[d2,"axis2"]~germfree[d2,"axis1"], col=c("black", "blue", "red", "green", "brown"), pch=15, cex=2)
+```
+
+Pat's code is simpler, but this worked so WOOT!
+
 3.  On pg. 57 there is a formula for the probability of making x observations after n trials when there is a probability p of the observation.  For this exercise, assume x=2, n=10, and p=0.5.  Using R, calculate the probability of x using this formula and the appropriate built in function. Compare it to the results we obtained in class when discussing the sex ratios of mice.
 
+```{r}
+pbinom(2, size=10, prob=.5)
+dbinom(2, size=10, prob=.5)
+```
+The formula on p57 appears in the R function dbinom on Lecture 9 Slide 11, page 61, and Figure 3.2, which states, "For discrete distributions, where variables can take on only distinct values..for the binomial distribution..dbinom(x,size= ,prob= )." We get the result *__`r dbinom(2, size=10, prob=.5)`__* which is identical to that on slide 16 in lecture 9. The function pbinom is used when the distribution is continuous.
 
 4.  On pg. 59 there is a formula for the probability of observing a value, x, when there is a mean, mu, and standard deviation, sigma.  For this exercise, assume x=10.3, mu=5, and sigma=3.  Using R, calculate the probability of x using this formula and the appropriate built in function
 
+```{r}
+
+```
 
 5.  One of my previous students, Joe Zackular, obtained stool samples from 89 people that underwent colonoscopies.  30 of these individuals had no signs of disease, 30 had non-cancerous ademonas, and 29 had cancer.  It was previously suggested that the bacterium *Fusobacterium nucleatum* was associated with cancer.  In these three pools of subjects, Joe determined that 4, 1, and 14 individuals harbored *F. nucleatum*, respectively. Create a matrix table to represent the number of individuals with and without _F. nucleatum_ as a function of disease state.  Then do the following:
 

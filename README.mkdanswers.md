@@ -65,12 +65,13 @@ axis(1, label=1:25, at=1:25) #adds bottom(1) axis label, numbered -125 with tick
 
 ![](README.mkdanswers_files/figure-html/unnamed-chunk-3-1.png) 
 
-I then generated a pdf with Rstudios export funciton in the "plots" window.
+I then generated a pdf with Rstudios export funciton in the "plots" window instead of using the pdf code above.
 <img src=pch.portrait.pdf>
 
 2.  Using the `germfree.nmds.axes` data file available in this respositry, generate a plot that looks like this. The points are connected in the order they were sampled with the circle representing the beginning ad the square the end of the time course:
 
     <img src="beta.png", style="margin:0px auto;display:block" width="700">
+    
 
 ```r
 germfree <- read.table(file="germfree.nmds.axes", header=T)
@@ -83,6 +84,31 @@ legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387
 ```
 
 ![](README.mkdanswers_files/figure-html/unnamed-chunk-4-1.png) 
+
+It was a good effort, but i couldnt figure out how to add circles and squares at the appropriate places, so I consulted the solutions.
+
+Here is my attempt to integrate my code with the "correct" code.
+
+```r
+germfree <- read.table(file="germfree.nmds.axes", header=T)
+mouse <- factor(germfree$mouse)
+day <- germfree$day
+plot(c(min(germfree$axis1), max(germfree$axis1)), c(min(germfree$axis2), max(germfree$axis2)), type="n", xlab="NMDS Axis 1", ylab="NMDS Axis 2")
+points(germfree[germfree$mouse=="337","axis2"]~germfree[germfree$mouse=="337","axis1"], col="black", pch=18, type="l", lwd=3)
+points(germfree[germfree$mouse=="343","axis2"]~germfree[germfree$mouse=="343","axis1"], col="blue", pch=19, type="l", lwd=3)
+points(germfree[germfree$mouse=="361","axis2"]~germfree[germfree$mouse=="361","axis1"], col="red", pch=20, type="l", lwd=3)
+points(germfree[germfree$mouse=="387","axis2"]~germfree[germfree$mouse=="387","axis1"], col="green", pch=20, type="l", lwd=3)
+points(germfree[germfree$mouse=="389","axis2"]~germfree[germfree$mouse=="389","axis1"], col="brown", pch=20, type="l", lwd=3)
+legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387", "Mouse 389"), col=c("black", "blue", "red", "green", "brown"), lty=1, lwd=2)
+d1 <- day == 1
+points(germfree[d1,"axis2"]~germfree[d1,"axis1"], col=c("black", "blue", "red", "green", "brown"), pch=19, cex=2)
+d2<- day == 21 | (mouse=="337" & day == 20)
+points(germfree[d2,"axis2"]~germfree[d2,"axis1"], col=c("black", "blue", "red", "green", "brown"), pch=15, cex=2)
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-5-1.png) 
+
+Pat's code is simpler, but this worked so WOOT!
 
 3.  On pg. 57 there is a formula for the probability of making x observations after n trials when there is a probability p of the observation.  For this exercise, assume x=2, n=10, and p=0.5.  Using R, calculate the probability of x using this formula and the appropriate built in function. Compare it to the results we obtained in class when discussing the sex ratios of mice.
 
