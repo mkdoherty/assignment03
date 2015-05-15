@@ -13,6 +13,7 @@ This assignment is due on October 10th.
 1.  Generate a plot that contains the different pch symbols. Investigate the knitr code chunk options to see whether you can have a pdf version of the image produced so you can print it off for yoru reference. It should look like this:
 
     <img src="pch.png", style="margin:0px auto;display:block" width="500">
+    
 
 ```r
 plot(1:25, pch = c(1:25), col = rainbow(25)) #produces a plot on the diagonal with 25 pch symbols in rainbow colors
@@ -26,7 +27,9 @@ stripchart(1:25, pch = c(1:25), col = rainbow(25)) #doesn't work to make plot th
 ```
 
 ![](README.mkdanswers_files/figure-html/unnamed-chunk-1-2.png) 
+
 I found it very interesting that 'pch.plot<-plot(1:25, pch = c(1:25), col = rainbow(25))' gets a "correct" answer for this question, but 'stripchart(1:25, pch = c(1:25), col = rainbow(25))' produces a strip chart of 25 red circles. So, I tried to make my plot look more like the example.
+
 
 ```r
 x.pch <- 1:25 #makes x vector 1-25
@@ -49,6 +52,22 @@ dev.off() #stops writing pdf file
 ```
 <img src=stripplot.pdf>
 
+But this still doesn't look right so I gave in and checked the solutions. Here's my code integrated with Pat's
+
+```r
+x.pch <- 1:25 #makes x vector 1-25
+y.pch <- rep(1, 25) #repeats 1 25 times
+xy.pch <- cbind(x.pch,y.pch) #creats matrix with x=1-25 y=1
+stripplot <- plot(xy.pch, pch=1:25, col = rainbow(25), cex=2, main="PCH Symbols", xlab="PCH value", ylab="", axes=F) #makes a plot that looks more like Pat's example
+abline(v=x.pch, col="gray") #adds verticle lines at each value x
+axis(1, label=1:25, at=1:25) #adds bottom(1) axis label, numbered -125 with tick marks at1-25
+```
+
+![](README.mkdanswers_files/figure-html/unnamed-chunk-3-1.png) 
+
+I then generated a pdf with Rstudios export funciton in the "plots" window.
+<img src=pch.portrait.pdf>
+
 2.  Using the `germfree.nmds.axes` data file available in this respositry, generate a plot that looks like this. The points are connected in the order they were sampled with the circle representing the beginning ad the square the end of the time course:
 
     <img src="beta.png", style="margin:0px auto;display:block" width="700">
@@ -63,7 +82,7 @@ points(germfree[germfree$mouse=="389","axis2"]~germfree[germfree$mouse=="389","a
 legend(x=0.0, y=-0.1, legend=c("Mouse 337", "Mouse 343", "Mouse 361", "Mouse 387", "Mouse 389"), col=c("black", "blue", "red", "green", "brown"), lty=1, lwd=2)
 ```
 
-![](README.mkdanswers_files/figure-html/unnamed-chunk-3-1.png) 
+![](README.mkdanswers_files/figure-html/unnamed-chunk-4-1.png) 
 
 3.  On pg. 57 there is a formula for the probability of making x observations after n trials when there is a probability p of the observation.  For this exercise, assume x=2, n=10, and p=0.5.  Using R, calculate the probability of x using this formula and the appropriate built in function. Compare it to the results we obtained in class when discussing the sex ratios of mice.
 
