@@ -113,7 +113,43 @@ Pat's code is simpler, but this worked so WOOT!
 3.  On pg. 57 there is a formula for the probability of making x observations after n trials when there is a probability p of the observation.  For this exercise, assume x=2, n=10, and p=0.5.  Using R, calculate the probability of x using this formula and the appropriate built in function. Compare it to the results we obtained in class when discussing the sex ratios of mice.
 
 
+```r
+x <-2
+n<-10
+p<-0.5
+prob.dbinom <- choose(k=x, n=n) * p^x * (1-p)^(n-x) #didn't know the choose function till checked solutions
+pbinom(2, size=10, prob=.5)
+```
+
+```
+## [1] 0.0546875
+```
+
+```r
+dbinom(2, size=10, prob=.5)
+```
+
+```
+## [1] 0.04394531
+```
+The formula on p57 appears in the R function dbinom on Lecture 9 Slide 11, page 61, and Figure 3.2, which states, "For discrete distributions, where variables can take on only distinct values..for the binomial distribution..dbinom(x,size= ,prob= )." We get the result *__0.0439453__* which is identical to that on slide 16 in lecture 9. The function pbinom is used when the distribution is continuous.
+
 4.  On pg. 59 there is a formula for the probability of observing a value, x, when there is a mean, mu, and standard deviation, sigma.  For this exercise, assume x=10.3, mu=5, and sigma=3.  Using R, calculate the probability of x using this formula and the appropriate built in function
+
+
+```r
+sigma <- 3
+mu <- 5
+x <- 10.3
+
+prob.formula <- (1/(sqrt(2*pi)*sigma)) * exp(-(x-mu)^2/(2*sigma*sigma))
+dnorm(10.3,5,3)
+```
+
+```
+## [1] 0.02792853
+```
+The dnorm function where x=10.3, mu=5, and sigma=3 gives us the same result as the formula on page 59, which is *__0.0279285__* or *__0.0279285__*.
 
 
 5.  One of my previous students, Joe Zackular, obtained stool samples from 89 people that underwent colonoscopies.  30 of these individuals had no signs of disease, 30 had non-cancerous ademonas, and 29 had cancer.  It was previously suggested that the bacterium *Fusobacterium nucleatum* was associated with cancer.  In these three pools of subjects, Joe determined that 4, 1, and 14 individuals harbored *F. nucleatum*, respectively. Create a matrix table to represent the number of individuals with and without _F. nucleatum_ as a function of disease state.  Then do the following:
@@ -129,4 +165,4 @@ Pat's code is simpler, but this worked so WOOT!
 
 6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
-No for one bag but with an increase in the sample size of bags the candy colors would be evenly distributed.
+I didn't get a bag of candy but my thinking is maybe not for one bag, but with an increase in the sample size of bags the candy colors would be evenly distributed. Which would also justify the increase in sample size for the Stelara project.
