@@ -1,4 +1,4 @@
-state patients fuso
-healthy 30 4
-adenoma 30 1
-cancer 29 14
+fuso healthy adenoma cancer
+positive 4 1 14
+negative 26 29 15
+total 30 30 29

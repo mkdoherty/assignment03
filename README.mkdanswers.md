@@ -154,15 +154,55 @@ The dnorm function where x=10.3, mu=5, and sigma=3 gives us the same result as t
 
 5.  One of my previous students, Joe Zackular, obtained stool samples from 89 people that underwent colonoscopies.  30 of these individuals had no signs of disease, 30 had non-cancerous ademonas, and 29 had cancer.  It was previously suggested that the bacterium *Fusobacterium nucleatum* was associated with cancer.  In these three pools of subjects, Joe determined that 4, 1, and 14 individuals harbored *F. nucleatum*, respectively. Create a matrix table to represent the number of individuals with and without _F. nucleatum_ as a function of disease state.  Then do the following:
 
+
+```r
+n<-89
+no.dis<- 30
+no.disnuc<- 4
+adeno<-30
+adeno.fus<-1
+cancer<-29
+fus.cancer<-14
+matrix.fuso<-rbind(cbind(no.dis,no.disnuc), cbind(adeno, adeno.fus),cbind(cancer, fus.cancer))
+##this doens't work as well as making the txt file in Rstudio and then importing as follows
+fuso<- read.table(file="fuso.matrix.txt", header=T)
+fuso
+```
+
+```
+##       fuso healthy adenoma cancer
+## 1 positive       4       1     14
+## 2 negative      26      29     15
+## 3    total      30      30     29
+```
+
+```r
+fuso<-fuso[-3,]
+not.cancer <- fuso[,"healthy"] + fuso[,"adenoma"]
+cancer <- fuso[,"cancer"]
+prop.test.result <- prop.test(not.cancer, not.cancer+cancer)
+chisq.test.result <- chisq.test(rbind(not.cancer, cancer))
+fisher.test.result <- fisher.test(rbind(not.cancer, cancer))
+```
+
     * Run the three tests of proportions you learned about in class using built in R  functions to the 2x2 study design where normals and adenomas are pooled and compared to carcinomas.
+    
+Proportion = 5.4822381\times 10^{-5}
+Chi-squared = 5.4822381\times 10^{-5}
+Fisher = 4.0941172\times 10^{-5}
+    
     * Without using the built in chi-squared test function, replicate the 2x2 study design in the last problem for the Chi-Squared Test...
+    
+    
       * Calculate the expected count matrix and calculate the Chi-Squared test statistics. Figure out how to get your test statistic to match Rs default statistic.
+      
+      
       *	Generate a Chi-Squared distributions with approporiate degrees of freedom by the method that was discussed in class (hint: you may consider using the `replicate` command)
       * Compare your Chi-Squared distributions to what you might get from the appropriate built in R functions
       * Based on your distribution calculate p-values
       * How does your p-value compare to what you saw using the built in functions? Explain your observations.
 
 
-6\.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
+6.  Get a bag of Skittles or M&Ms.  Are the candies evenly distributed amongst the different colors?  Justify your conclusion.
 
 I didn't get a bag of candy but my thinking is maybe not for one bag, but with an increase in the sample size of bags the candy colors would be evenly distributed. Which would also justify the increase in sample size for the Stelara project.
